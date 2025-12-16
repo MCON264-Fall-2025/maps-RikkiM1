@@ -1,4 +1,10 @@
 package hashmap_exercises;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 import java.util.Collections;
 import java.util.List;
@@ -22,12 +28,23 @@ public class GroupAnagrams {
      * @return a list of groups, where each group is a list of anagrams
      */
     public List<List<String>> groupAnagrams(String[] strs) {
-        // TODO: implement
-        // Typical approach:
-        // - For each string, sort its characters to get a "canonical form"
-        // - Use a Map<String, List<String>>: canonicalForm -> list of words
-        // - Return the map's values as the result
-        return Collections.emptyList();
+        Map<String, List<String>> map = new HashMap<>();
+
+        for (String word : strs) {
+            char[] chars = word.toCharArray();
+            Arrays.sort(chars);
+            String key = new String(chars);
+
+            List<String> group = map.get(key);
+            if (group == null) {
+                group = new ArrayList<>();
+                map.put(key, group);
+            }
+
+            group.add(word);
+        }
+
+        return new ArrayList<>(map.values());
     }
 }
 
